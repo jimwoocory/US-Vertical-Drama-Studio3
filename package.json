@@ -1,11 +1,15 @@
 {
   "name": "us-vertical-drama-studio3-lite",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
     "test": "node test/checkup.test.mjs",
-    "check:example": "node tools/checkup.mjs examples/synthetic-project.json"
+    "check:example": "node tools/checkup.mjs examples/synthetic-project.json && node tools/checkup.mjs examples/cedar-inn-project.json",
+    "check:story": "node tools/checkup.mjs examples/cedar-inn-project.json",
+    "verify:package": "node tools/verify-package.mjs",
+    "build:zip": "node tools/build-zip.mjs",
+    "verify": "npm test && npm run check:example && npm run verify:package"
   },
   "engines": { "node": ">=22" }
 }

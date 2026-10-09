@@ -1,0 +1,20 @@
+{
+  "name": "usvds3-dev",
+  "interface": {
+    "displayName": "USVDS3 Lite 本地开发目录"
+  },
+  "plugins": [
+    {
+      "name": "us-vertical-drama-studio3-lite",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Creative"
+    }
+  ]
+}

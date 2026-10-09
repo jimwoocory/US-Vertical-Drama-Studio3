@@ -25,6 +25,8 @@ export function validate(d) {
   const story = obj(d.story) ? d.story : {};
   const scenes = entries(story.scenes, '$.story.scenes');
   const episodes = entries(d.episodes, '$.episodes'), proposals = entries(d.proposedScenes, '$.proposedScenes');
+  const decisions = d.majorDecisions === undefined ? [] : entries(d.majorDecisions, '$.majorDecisions');
+  const knowledgeNodes = d.audienceKnowledgeNodes === undefined ? [] : entries(d.audienceKnowledgeNodes, '$.audienceKnowledgeNodes');
   const segments = entries(d.segments, '$.segments'), shots = entries(d.shots, '$.shots'), cues = entries(d.cues, '$.cues'), assets = entries(d.assets, '$.assets');
   if (typeof story.revision !== 'string' || !story.revision) add('E_STORY_REVISION', '$.story.revision', 'A story revision is required.');
   if (typeof story.digest !== 'string' || !/^[a-f0-9]{64}$/.test(story.digest)) add('E_STORY_DIGEST', '$.story.digest', 'Expected a lowercase 64-character SHA-256 digest.');
@@ -42,6 +44,17 @@ export function validate(d) {
   const sceneMap = new Map(scenes.filter(s => typeof s.id === 'string').map(s => [s.id, s]));
   const beatSet = new Set();
   scenes.forEach((s,i) => { if (!Array.isArray(s.beats)) add('E_ARRAY', `$.story.scenes[${i}].beats`, 'Expected an array.'); else s.beats.forEach((b,j) => { if (typeof b !== 'string') add('E_FIELD', `$.story.scenes[${i}].beats[${j}]`, 'Beat ID must be a string.'); else beatSet.add(b); }); });
+  const evidenceByScene = new Map();
+  scenes.forEach((s,i) => {
+    const path=`$.story.scenes[${i}].beatEvidence`;
+    if (s.beatEvidence !== undefined && !Array.isArray(s.beatEvidence)) { add('E_KNOWLEDGE_UNDEPICTED',path,'Expected an array of concrete beat evidence.'); return; }
+    const rows=Array.isArray(s.beatEvidence)?s.beatEvidence:[];
+    evidenceByScene.set(s.id,rows);
+    rows.forEach((e,j)=>{
+      const ep=`${path}[${j}]`;
+      if(!obj(e)||typeof e.beatId!=='string'||!Array.isArray(s.beats)||!s.beats.includes(e.beatId)||!['ACTION','DIALOGUE','ON_SCREEN_TEXT'].includes(e.mode)||typeof e.depiction!=='string'||!e.depiction.trim()) add('E_KNOWLEDGE_UNDEPICTED',ep,'Evidence must match a scene beat and include a valid mode plus non-empty concrete depiction.');
+    });
+  });
   const refs = (item, path, key, allowed, code) => { if (!Array.isArray(item[key])) { add('E_ARRAY', `${path}.${key}`, 'Expected an array.'); return []; } item[key].forEach((x,i) => { if (typeof x !== 'string') add('E_FIELD', `${path}.${key}[${i}]`, 'Reference must be a string.'); else if (!allowed.has(x)) add(code, `${path}.${key}`, `Unknown reference: ${x}.`); }); return item[key].filter(x => typeof x === 'string'); };
   const locks = d.authorLocks === undefined ? [] : entries(d.authorLocks, '$.authorLocks'), lockMap = new Map();
   locks.forEach((l,i) => {
@@ -67,6 +80,49 @@ export function validate(d) {
     }
     for (const id of lockIds) { const l=lockMap.get(id); if (l && l.episodeId !== e.id) add('E_AUTHOR_LOCK_EPISODE', `${p}.authorLockRefs`, `Lock ${id} targets ${l.episodeId}.`); }
   });
+  // Episode beatRefs are ordered. Every declared major decision must have a
+  // complete audience-knowledge trace at or before its decision beat.
+  const episodeOrder = new Map();
+  episodes.forEach((e,i) => {
+    if ((decisions.length || d.scope==='STORY_AND_EPISODES') && (!Number.isInteger(e.order) || e.order < 1)) add('E_EPISODE_ORDER', `$.episodes[${i}].order`, 'Episode order must be a positive integer.');
+    else if (episodeOrder.has(e.order)) add('E_EPISODE_ORDER', `$.episodes[${i}].order`, 'Episode order must be unique.');
+    else episodeOrder.set(e.order, e);
+  });
+  const nodeMap = new Map(), decisionMap = new Map();
+  decisions.forEach((dec,i)=>{ if(typeof dec.id==='string'&&dec.id.trim()) { if(decisionMap.has(dec.id)) add('E_DUPLICATE_ID',`$.majorDecisions[${i}].id`,`Duplicate decision ${dec.id}.`); else decisionMap.set(dec.id,dec); } });
+  knowledgeNodes.forEach((n,i) => {
+    const p=`$.audienceKnowledgeNodes[${i}]`;
+    if (typeof n.id !== 'string' || !n.id.trim()) add('E_KNOWLEDGE_TRACE', `${p}.id`, 'Knowledge node needs a stable ID.');
+    else if(nodeMap.has(n.id)) add('E_DUPLICATE_ID', `${p}.id`, `Duplicate knowledge node ${n.id}.`); else nodeMap.set(n.id,n);
+    const required=['episodeId','beatId','sceneId','decisionId','actor','goal','motive','cost','choice','chosenTradeoff','rejectedTradeoff'];
+    if(required.some(k=>typeof n[k]!=='string'||!n[k].trim())) add('E_KNOWLEDGE_TRACE',p,'Knowledge trace needs episode, beat, decision, actor, goal, motive, cost, choice, and both tradeoffs.');
+    const ep=episodes.find(e=>e.id===n.episodeId);
+    if(!ep || !Array.isArray(ep.beatRefs) || !ep.beatRefs.includes(n.beatId)) add('E_KNOWLEDGE_STALE',`${p}.beatId`,'Knowledge beat is missing from its declared episode beatRefs.');
+    const scene=sceneMap.get(n.sceneId), evidence=(evidenceByScene.get(n.sceneId)||[]).find(x=>obj(x)&&x.beatId===n.beatId);
+    if(!scene || !Array.isArray(scene.beats) || !scene.beats.includes(n.beatId) || !ep || !Array.isArray(ep.sceneRefs) || !ep.sceneRefs.includes(n.sceneId) || !evidence || !['ACTION','DIALOGUE','ON_SCREEN_TEXT'].includes(evidence.mode) || typeof evidence.depiction!=='string' || !evidence.depiction.trim()) add('E_KNOWLEDGE_UNDEPICTED',`${p}.beatId`,'Knowledge node must link to matching beat evidence in a story scene cited by its episode.');
+    if(!decisionMap.has(n.decisionId)) add('E_KNOWLEDGE_STALE',`${p}.decisionId`,'Knowledge node points to an unknown major decision.');
+  });
+  decisions.forEach((dec,i) => {
+    const p=`$.majorDecisions[${i}]`;
+    if(typeof dec.id!=='string'||!dec.id.trim()||typeof dec.episodeId!=='string'||typeof dec.beatId!=='string') { add('E_KNOWLEDGE_TRACE',p,'Major decision needs stable id, episodeId, and beatId.'); return; }
+    const ep=episodes.find(e=>e.id===dec.episodeId);
+    if(!ep || !Array.isArray(ep.beatRefs) || !ep.beatRefs.includes(dec.beatId)) { add('E_KNOWLEDGE_STALE',`${p}.beatId`,'Decision beat is missing from its declared episode beatRefs.'); return; }
+    const di=ep.beatRefs.indexOf(dec.beatId);
+    const nodes=knowledgeNodes.filter(n=>n.decisionId===dec.id);
+    if(!nodes.length) { add('E_KNOWLEDGE_ABSENT',p,'Every major decision needs an audience knowledge node.'); return; }
+    for(const n of nodes) {
+      const sourceEp=episodes.find(e=>e.id===n.episodeId);
+      const ki=Array.isArray(sourceEp?.beatRefs) ? sourceEp.beatRefs.indexOf(n.beatId) : -1;
+      if(!sourceEp || !Number.isInteger(sourceEp.order) || !Number.isInteger(ep.order) || ki<0 || sourceEp.order>ep.order || (sourceEp.order===ep.order && ki>di)) add('E_KNOWLEDGE_STALE',p,`Knowledge ${n.id} must occur in an earlier episode or before/at decision beat ${dec.beatId}.`);
+      const textFields=['actor','goal','motive','cost','choice','chosenTradeoff','rejectedTradeoff'];
+      if(textFields.some(k=>typeof n[k]!=='string'||!n[k].trim())) add('E_KNOWLEDGE_TRACE',p,`Knowledge ${n.id} has an incomplete actor/goal/motive/cost/choice/tradeoff trace.`);
+    }
+  });
+  // Author constraints are optional; never manufacture locks for a user who
+  // supplied none. Once supplied, each lock must point to a real episode.
+  if(d.scope==='STORY_AND_EPISODES') for(const l of locks) {
+    if(!episodes.some(e=>e.id===l.episodeId)) add('E_AUTHOR_LOCK_EPISODES','$.episodes',`Author lock ${l.id} targets an episode missing from the map: ${l.episodeId}.`);
+  }
   const checkRefs = (item,path) => { refs(item,path,'beatRefs',beatSet,'E_BEAT_REF'); if (item.sceneRef !== undefined && !sceneMap.has(item.sceneRef)) add('E_SCENE_REF', `${path}.sceneRef`, 'Unknown scene reference.'); };
   proposals.forEach((p,i) => {
     const path=`$.proposedScenes[${i}]`; checkRefs(p,path);
@@ -77,6 +133,7 @@ export function validate(d) {
       const clashes=refs(p,path,'clashesWithLocks',new Set(lockMap.keys()),'E_AUTHOR_LOCK_REF');
       if (clashes.length && (!obj(p.authorLockResolution) || typeof p.authorLockResolution.decisionId !== 'string' || !p.authorLockResolution.decisionId.trim() || p.authorLockResolution.decision !== 'AUTHOR_APPROVED' || p.authorLockResolution.approver !== 'AUTHOR')) add('E_AUTHOR_LOCK_CLASH', `${path}.authorLockResolution`, 'Clash needs a specific author resolution decision; this is not production approval.');
     }
+    if (p.changesApprovedChoice === true && (!Array.isArray(p.clashesWithLocks) || !p.clashesWithLocks.length)) add('E_AUTHOR_LOCK_CLASH', `${path}.clashesWithLocks`, 'A declared approved-choice change must identify affected locks as a proposal.');
     if (p.adaptationLevel !== undefined && !['L0','L1','L2'].includes(p.adaptationLevel)) add('E_ADAPTATION_LEVEL', `${path}.adaptationLevel`, 'Expected L0, L1 or L2.');
     if ((p.adaptationLevel === 'L2' || p.changesCanon === true) && p.authorApproval !== true) add('E_AUTHOR_APPROVAL_REQUIRED', `${path}.authorApproval`, 'L2 adaptations and canon-changing proposals require explicit author approval only.');
   });

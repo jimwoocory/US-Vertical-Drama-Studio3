@@ -1,0 +1,370 @@
+{
+  "schemaVersion": 1,
+  "projectId": "cedar-inn-original-demo",
+  "scope": "STORY_AND_EPISODES",
+  "artifactStatus": "DRAFT_ONLY",
+  "productionApproval": "BLOCKED",
+  "mediaExecuted": false,
+  "provenance": {
+    "kind": "ORIGINAL_SYNTHETIC",
+    "note": "Fictional small-town hotel story created for this repository; no source script or real person."
+  },
+  "story": {
+    "revision": "cedar-r1",
+    "scenes": [
+      {
+        "id": "SC01",
+        "beats": [
+          "B01-KNOW",
+          "B01-CHOICE",
+          "B01-PAYOFF"
+        ],
+        "beatEvidence": [
+          {
+            "beatId": "B01-KNOW",
+            "mode": "ACTION",
+            "depiction": "Mara holds a failed latch beside the rain soaked room key and circles its entry on the audit log."
+          }
+        ]
+      },
+      {
+        "id": "SC02",
+        "beats": [
+          "B02-KNOW",
+          "B02-CHOICE",
+          "B02-REVERSAL"
+        ],
+        "beatEvidence": [
+          {
+            "beatId": "B02-KNOW",
+            "mode": "DIALOGUE",
+            "depiction": "Mara tells the fire chief, “The latch failed during the storm, and the owner controls the key system.”"
+          }
+        ]
+      },
+      {
+        "id": "SC03",
+        "beats": [
+          "B03-KNOW",
+          "B03-CHOICE",
+          "B03-PAYOFF"
+        ],
+        "beatEvidence": [
+          {
+            "beatId": "B03-KNOW",
+            "mode": "ON_SCREEN_TEXT",
+            "depiction": "A guest’s timestamped photo on Mara’s phone shows the damaged latch and the time of her warning."
+          }
+        ]
+      },
+      {
+        "id": "SC04",
+        "beats": [
+          "B04-KNOW",
+          "B04-CHOICE",
+          "B04-REVERSAL"
+        ],
+        "beatEvidence": [
+          {
+            "beatId": "B04-KNOW",
+            "mode": "ON_SCREEN_TEXT",
+            "depiction": "Mara reads the county notice: inspection delayed after the bridge closure; winter payroll at risk."
+          }
+        ]
+      },
+      {
+        "id": "SC05",
+        "beats": [
+          "B05-KNOW",
+          "B05-CHOICE",
+          "B05-PRICE"
+        ],
+        "beatEvidence": [
+          {
+            "beatId": "B05-KNOW",
+            "mode": "DIALOGUE",
+            "depiction": "Mara tells the staff, “If we move guests tonight, we lose the open-room revenue; if we wait, they sleep beside a failed latch.”"
+          }
+        ]
+      },
+      {
+        "id": "SC06",
+        "beats": [
+          "B06-KNOW",
+          "B06-CHOICE",
+          "B06-END"
+        ],
+        "beatEvidence": [
+          {
+            "beatId": "B06-KNOW",
+            "mode": "ACTION",
+            "depiction": "Mara lays the full signed room log beside receipts for parts the owner paid for and the hidden failed-inspection notice."
+          }
+        ]
+      }
+    ],
+    "digest": "27a63321ce308a42eae3a04c41c4c6dd24d3595e62ecd0b2359cbfcf4a2aad00"
+  },
+  "episodes": [
+    {
+      "id": "EP01",
+      "order": 1,
+      "logline": "A storm strands guests as the owner orders Mara to hide a room-key audit that could expose a dangerous lock failure.",
+      "storyRevision": "cedar-r1",
+      "storyDigest": "27a63321ce308a42eae3a04c41c4c6dd24d3595e62ecd0b2359cbfcf4a2aad00",
+      "sceneRefs": [
+        "SC01"
+      ],
+      "beatRefs": [
+        "B01-KNOW",
+        "B01-CHOICE",
+        "B01-PAYOFF"
+      ],
+      "authorLockRefs": [
+        "LOCK-EP01"
+      ]
+    },
+    {
+      "id": "EP02",
+      "order": 2,
+      "logline": "Mara shares the audit with the town fire chief, losing her shift when the owner frames her as the leak.",
+      "storyRevision": "cedar-r1",
+      "storyDigest": "27a63321ce308a42eae3a04c41c4c6dd24d3595e62ecd0b2359cbfcf4a2aad00",
+      "sceneRefs": [
+        "SC02"
+      ],
+      "beatRefs": [
+        "B02-KNOW",
+        "B02-CHOICE",
+        "B02-REVERSAL"
+      ],
+      "authorLockRefs": [
+        "LOCK-EP02"
+      ]
+    },
+    {
+      "id": "EP03",
+      "order": 3,
+      "logline": "A guest's timestamped photo clears Mara's motive, but reveals the owner has been quietly paying for repairs.",
+      "storyRevision": "cedar-r1",
+      "storyDigest": "27a63321ce308a42eae3a04c41c4c6dd24d3595e62ecd0b2359cbfcf4a2aad00",
+      "sceneRefs": [
+        "SC03"
+      ],
+      "beatRefs": [
+        "B03-KNOW",
+        "B03-CHOICE",
+        "B03-PAYOFF"
+      ],
+      "authorLockRefs": [
+        "LOCK-EP03"
+      ]
+    },
+    {
+      "id": "EP04",
+      "order": 4,
+      "logline": "Mara finds the county inspection was delayed after the town's only bridge closure threatened the inn's winter payroll.",
+      "storyRevision": "cedar-r1",
+      "storyDigest": "27a63321ce308a42eae3a04c41c4c6dd24d3595e62ecd0b2359cbfcf4a2aad00",
+      "sceneRefs": [
+        "SC04"
+      ],
+      "beatRefs": [
+        "B04-KNOW",
+        "B04-CHOICE",
+        "B04-REVERSAL"
+      ],
+      "authorLockRefs": []
+    },
+    {
+      "id": "EP05",
+      "order": 5,
+      "logline": "She can expose the delay now or give the staff one night to move guests safely, risking evidence being lost.",
+      "storyRevision": "cedar-r1",
+      "storyDigest": "27a63321ce308a42eae3a04c41c4c6dd24d3595e62ecd0b2359cbfcf4a2aad00",
+      "sceneRefs": [
+        "SC05"
+      ],
+      "beatRefs": [
+        "B05-KNOW",
+        "B05-CHOICE",
+        "B05-PRICE"
+      ],
+      "authorLockRefs": []
+    },
+    {
+      "id": "EP06",
+      "order": 6,
+      "logline": "The staff's signed room log forces a public hearing; Mara secures a safe reopening plan but leaves the owner's fate to the town.",
+      "storyRevision": "cedar-r1",
+      "storyDigest": "27a63321ce308a42eae3a04c41c4c6dd24d3595e62ecd0b2359cbfcf4a2aad00",
+      "sceneRefs": [
+        "SC06"
+      ],
+      "beatRefs": [
+        "B06-KNOW",
+        "B06-CHOICE",
+        "B06-END"
+      ],
+      "authorLockRefs": []
+    }
+  ],
+  "authorLocks": [
+    {
+      "id": "LOCK-EP01",
+      "episodeId": "EP01",
+      "origin": "USER",
+      "requiredBeatIds": [
+        "B01-CHOICE",
+        "B01-PAYOFF"
+      ],
+      "mustNotBeatIds": [],
+      "provenance": "Illustrative fictitious user requirement created only for this sample; not a real author instruction."
+    },
+    {
+      "id": "LOCK-EP02",
+      "episodeId": "EP02",
+      "origin": "USER",
+      "requiredBeatIds": [
+        "B02-CHOICE",
+        "B02-REVERSAL"
+      ],
+      "mustNotBeatIds": [],
+      "provenance": "Illustrative fictitious user requirement created only for this sample; not a real author instruction."
+    },
+    {
+      "id": "LOCK-EP03",
+      "episodeId": "EP03",
+      "origin": "USER",
+      "requiredBeatIds": [
+        "B03-CHOICE",
+        "B03-PAYOFF"
+      ],
+      "mustNotBeatIds": [],
+      "provenance": "Illustrative fictitious user requirement created only for this sample; not a real author instruction."
+    }
+  ],
+  "majorDecisions": [
+    {
+      "id": "DEC01",
+      "episodeId": "EP01",
+      "beatId": "B01-CHOICE"
+    },
+    {
+      "id": "DEC02",
+      "episodeId": "EP02",
+      "beatId": "B02-CHOICE"
+    },
+    {
+      "id": "DEC03",
+      "episodeId": "EP03",
+      "beatId": "B03-CHOICE"
+    },
+    {
+      "id": "DEC04",
+      "episodeId": "EP04",
+      "beatId": "B04-CHOICE"
+    },
+    {
+      "id": "DEC05",
+      "episodeId": "EP05",
+      "beatId": "B05-CHOICE"
+    },
+    {
+      "id": "DEC06",
+      "episodeId": "EP06",
+      "beatId": "B06-CHOICE"
+    }
+  ],
+  "audienceKnowledgeNodes": [
+    {
+      "id": "KN01",
+      "episodeId": "EP01",
+      "beatId": "B01-KNOW",
+      "decisionId": "DEC01",
+      "actor": "Mara, night manager",
+      "goal": "Keep guests safe and protect her job",
+      "motive": "She saw a latch fail during the storm",
+      "cost": "Owner can fire her and deny the repair budget",
+      "choice": "Preserve the audit and move guests",
+      "chosenTradeoff": "Safety evidence survives; the inn may lose bookings",
+      "rejectedTradeoff": "Hide the log; keep tonight calm but leave guests exposed",
+      "sceneId": "SC01"
+    },
+    {
+      "id": "KN02",
+      "episodeId": "EP02",
+      "beatId": "B02-KNOW",
+      "decisionId": "DEC02",
+      "actor": "Mara",
+      "goal": "Get a neutral safety check",
+      "motive": "The owner controls her schedule and the key system",
+      "cost": "A public report could close the inn",
+      "choice": "Give the audit to the fire chief",
+      "chosenTradeoff": "Independent review; coworkers may lose shifts",
+      "rejectedTradeoff": "Keep it internal; preserve payroll but leave the owner in control",
+      "sceneId": "SC02"
+    },
+    {
+      "id": "KN03",
+      "episodeId": "EP03",
+      "beatId": "B03-KNOW",
+      "decisionId": "DEC03",
+      "actor": "Mara",
+      "goal": "Defend herself without hiding the hazard",
+      "motive": "The owner has blamed her for a leak",
+      "cost": "The photo also exposes her own unauthorized room move",
+      "choice": "Show the guest's timestamped photo",
+      "chosenTradeoff": "Her warning is corroborated; she admits breaking policy",
+      "rejectedTradeoff": "Stay silent; protect herself briefly but let the false story harden",
+      "sceneId": "SC03"
+    },
+    {
+      "id": "KN04",
+      "episodeId": "EP04",
+      "beatId": "B04-KNOW",
+      "decisionId": "DEC04",
+      "actor": "Mara",
+      "goal": "Understand why repairs stalled",
+      "motive": "Staff depend on the inn through winter",
+      "cost": "The bridge closure left few local jobs",
+      "choice": "Read the delayed inspection notice aloud at the staff meeting",
+      "chosenTradeoff": "Shared facts; the owner loses privacy and trust",
+      "rejectedTradeoff": "Keep it quiet; protect the owner but leave staff in the dark",
+      "sceneId": "SC04"
+    },
+    {
+      "id": "KN05",
+      "episodeId": "EP05",
+      "beatId": "B05-KNOW",
+      "decisionId": "DEC05",
+      "actor": "Mara",
+      "goal": "Protect guests and preserve evidence",
+      "motive": "A county inspector can arrive tomorrow",
+      "cost": "Moving guests now may destroy the only open-room revenue",
+      "choice": "Move guests tonight and seal the room log",
+      "chosenTradeoff": "Immediate safety; payroll is at risk",
+      "rejectedTradeoff": "Wait for inspection; income continues but an unsafe room remains occupied",
+      "sceneId": "SC05"
+    },
+    {
+      "id": "KN06",
+      "episodeId": "EP06",
+      "beatId": "B06-KNOW",
+      "decisionId": "DEC06",
+      "actor": "Mara",
+      "goal": "Reopen safely without deciding the town's punishment",
+      "motive": "The owner paid for parts but hid the failed inspection",
+      "cost": "A hearing could end the owner's livelihood",
+      "choice": "Present the full log and support a monitored reopening plan",
+      "chosenTradeoff": "Guests return under oversight; the owner faces public accountability",
+      "rejectedTradeoff": "Demand permanent closure; remove immediate risk but erase local jobs",
+      "sceneId": "SC06"
+    }
+  ],
+  "proposedScenes": [],
+  "segments": [],
+  "shots": [],
+  "cues": [],
+  "assets": []
+}
