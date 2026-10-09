@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "projectId": "hotel-log-demo",
+  "scope": "DIRECTOR_HANDOFF",
+  "artifactStatus": "DRAFT_ONLY",
+  "productionApproval": "BLOCKED",
+  "mediaExecuted": false,
+  "story": {
+    "revision": "story-r1",
+    "scenes": [
+      {
+        "id": "SC01",
+        "beats": [
+          "B01"
+        ]
+      }
+    ],
+    "digest": "06ca632d9ff347e47be10d53609d53230cb435ab97daa637e71859b1d56c1baf"
+  },
+  "episodes": [
+    {
+      "id": "EP01",
+      "storyRevision": "story-r1",
+      "storyDigest": "06ca632d9ff347e47be10d53609d53230cb435ab97daa637e71859b1d56c1baf",
+      "sceneRefs": [
+        "SC01"
+      ],
+      "beatRefs": [
+        "B01"
+      ],
+      "authorLockRefs": [
+        "LOCK-EP01-01"
+      ]
+    }
+  ],
+  "authorLocks": [
+    {
+      "id": "LOCK-EP01-01",
+      "episodeId": "EP01",
+      "origin": "USER",
+      "requiredBeatIds": [
+        "B01"
+      ],
+      "mustNotBeatIds": []
+    }
+  ],
+  "proposedScenes": [
+    {
+      "id": "SC01",
+      "sceneRef": "SC01",
+      "beatRefs": [
+        "B01"
+      ],
+      "episodeId": "EP01",
+      "facts": [
+        "Mara refuses to alter the keycard log"
+      ],
+      "storyRevision": "story-r1",
+      "storyDigest": "06ca632d9ff347e47be10d53609d53230cb435ab97daa637e71859b1d56c1baf"
+    }
+  ],
+  "segments": [
+    {
+      "id": "SEG01",
+      "sceneRef": "SC01",
+      "beatRefs": [
+        "B01"
+      ],
+      "durationSeconds": 12,
+      "prompt": "At a small Ohio hotel front desk, Mara slides the printed keycard log toward her supervisor. He reaches to cover the timestamp; she pulls it back and faces the waiting guests.",
+      "shotRefs": [
+        "SHOT01"
+      ],
+      "cueRefs": [
+        "DIA01",
+        "OS01",
+        "VS01",
+        "SFX01"
+      ]
+    }
+  ],
+  "shots": [
+    {
+      "id": "SHOT01",
+      "segmentRef": "SEG01",
+      "durationSeconds": 12
+    }
+  ],
+  "cues": [
+    {
+      "id": "DIA01",
+      "type": "DIALOGUE",
+      "speaker": "Mara",
+      "source": "on-camera performance",
+      "segmentRef": "SEG01",
+      "startSeconds": 1,
+      "endSeconds": 3,
+      "lipSync": "SYNC_DIALOGUE"
+    },
+    {
+      "id": "OS01",
+      "type": "OS",
+      "speaker": "Mara",
+      "source": "Mara internal thought",
+      "segmentRef": "SEG01",
+      "startSeconds": 4,
+      "endSeconds": 5,
+      "lipSync": "NONE"
+    },
+    {
+      "id": "VS01",
+      "type": "VS",
+      "speaker": "Supervisor",
+      "source": "Supervisor outside frame",
+      "segmentRef": "SEG01",
+      "startSeconds": 6,
+      "endSeconds": 7,
+      "lipSync": "NONE"
+    },
+    {
+      "id": "SFX01",
+      "type": "SFX",
+      "source": "keycard printer beep",
+      "segmentRef": "SEG01",
+      "startSeconds": 8,
+      "endSeconds": 8.5,
+      "lipSync": "NONE"
+    }
+  ],
+  "assets": []
+}

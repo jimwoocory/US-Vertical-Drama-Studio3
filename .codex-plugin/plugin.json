@@ -1,0 +1,28 @@
+{
+  "name": "us-vertical-drama-studio3-lite",
+  "version": "0.1.0",
+  "description": "Draft-only light adaptation workflow for Chinese-paced, US-facing vertical drama.",
+  "author": {
+    "name": "USVDS3 contributors"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "USVDS3 Lite · 中式爽剧美式轻改编",
+    "shortDescription": "轻量规划、改编、剧本与导演交接",
+    "longDescription": "Draft-only Agent Skills for Chinese short-drama fast payoffs with credible US social logic and performable English dialogue. No app, production approval, or automatic video rendering.",
+    "developerName": "USVDS3 contributors",
+    "category": "Creative",
+    "capabilities": [
+      "Creative Writing",
+      "Analysis"
+    ],
+    "defaultPrompt": [
+      "IDEA：把这个原创想法整理成几个中式爽剧节奏、美国角色可信的故事方向。只交付故事方向。",
+      "ADAPT_SOURCE：我拥有所附故事的改编权。先登记来源范围，再按场景做 L0/L1 轻改编；需要 L2 的地方列提案，不要擅自改结局。",
+      "STORY_ONLY：只做完整故事规划，不生成分集表。",
+      "STORY_AND_EPISODES：先登记我对 EP01–EP03 的锁定要求，再规划完整故事和分集地图。",
+      "SCRIPT_REVIEW：审查这份剧本的因果、美国社会逻辑、英语可演性和声音标记，不改写。",
+      "DIRECTOR_HANDOFF：把剧本转成最小可执行的镜头/视频提示词交接；不生成视频。"
+    ]
+  }
+}

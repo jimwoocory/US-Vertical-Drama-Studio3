@@ -1,0 +1,11 @@
+{
+  "name": "us-vertical-drama-studio3-lite",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node test/checkup.test.mjs",
+    "check:example": "node tools/checkup.mjs examples/synthetic-project.json"
+  },
+  "engines": { "node": ">=22" }
+}

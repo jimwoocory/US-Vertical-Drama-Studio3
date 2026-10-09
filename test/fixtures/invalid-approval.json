@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "projectId": "bad-demo",
+  "scope": "PROMPT_ONLY",
+  "artifactStatus": "APPROVED",
+  "productionApproval": "APPROVED",
+  "mediaExecuted": true,
+  "story": { "revision": "r1", "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "scenes": [] },
+  "episodes": [], "proposedScenes": [], "segments": [], "shots": [], "cues": [], "assets": []
+}
